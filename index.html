@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lernziel-Bibliothek</title>
+  <link rel="stylesheet" href="style.css?v=7" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">LZ</div>
+        <div>
+          <div class="title">Lernziel-Bibliothek</div>
+          <div class="subtitle">Vorklinik/Klinik → Semester → Disziplin → Vorlesung → Subgruppe (als Titel) → Lernziel</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input id="search" class="search" placeholder="Suche (Disziplin, Vorlesung, Subgruppe, Lernziel) …" />
+
+        <label class="chip primary">
+          <input id="onlyOpen" type="checkbox" />
+          <span>Nur offene (Lernmodus)</span>
+        </label>
+
+        <label class="chip">
+          <input id="filterStar" type="checkbox" />
+          <span>Nur ★ wichtig</span>
+        </label>
+
+        <label class="chip">
+          <input id="filterRepeat" type="checkbox" />
+          <span>Nur 🔁 wiederholen</span>
+        </label>
+
+        <button id="nextOpen" class="btn" type="button">Nächstes offenes</button>
+        <button id="randomPick" class="btn" type="button">Zufällig</button>
+
+        <button id="resetDone" class="btn danger" type="button" title="Setzt erledigt/Marker in diesem Browser zurück">
+          Zurücksetzen
+        </button>
+      </div>
+
+      <div class="statusRow">
+        <div id="status" class="status"></div>
+        <div class="progressMini">
+          <div class="progressLabel" id="progressLabel">Fortschritt</div>
+          <div class="progressBar"><div id="progressFill" class="progressFill"></div></div>
+        </div>
+      </div>
+
+      <div id="spotlight" class="spotlight hidden" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div id="grid" class="stack"></div>
+  </main>
+
+  <script src="script.js?v=7"></script>
+</body>
+</html>
