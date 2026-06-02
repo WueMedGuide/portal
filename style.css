@@ -420,3 +420,185 @@ details.semester[data-sem="9"]  > summary{ background: linear-gradient(135deg,#c
 details.semester[data-sem="10"] > summary{ background: linear-gradient(135deg,#ddd6fe,#bfdbfe); }
 
 details.semester[open] > div{ padding-top: 8px; }
+
+
+/* ---------------- Passwort-Screen WueMedGuide ---------------- */
+
+.hidden{
+  display: none !important;
+}
+
+.authScreen{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background:
+    radial-gradient(circle at top left, rgba(191,219,254,.65), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(221,214,254,.58), transparent 32%),
+    linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+}
+
+.authCard{
+  width: 100%;
+  max-width: 470px;
+  border: 1px solid rgba(17,24,39,.08);
+  border-radius: 28px;
+  padding: 34px 34px 30px;
+  background: rgba(255,255,255,.82);
+  box-shadow:
+    0 24px 70px rgba(17,24,39,.10),
+    inset 0 1px 0 rgba(255,255,255,.85);
+  backdrop-filter: blur(18px);
+}
+
+.authLogo{
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  font-weight: 900;
+  letter-spacing: -.04em;
+  color: rgba(30,64,175,.92);
+  background:
+    linear-gradient(135deg, rgba(191,219,254,.95), rgba(221,214,254,.95));
+  box-shadow: 0 10px 24px rgba(59,130,246,.16);
+}
+
+.authKicker{
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(37,99,235,.72);
+}
+
+.authCard h1{
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -.04em;
+  color: rgba(17,24,39,.94);
+}
+
+.authText{
+  margin: 14px 0 24px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(17,24,39,.66);
+}
+
+.authForm label{
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(17,24,39,.70);
+}
+
+.passwordRow{
+  display: flex;
+  gap: 10px;
+}
+
+.passwordRow input{
+  flex: 1;
+  min-width: 0;
+  border: 1px solid rgba(17,24,39,.10);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: rgba(255,255,255,.88);
+  outline: none;
+}
+
+.passwordRow input:focus{
+  border-color: rgba(59,130,246,.35);
+  box-shadow: 0 0 0 4px rgba(59,130,246,.08);
+}
+
+.passwordRow button{
+  border: none;
+  border-radius: 14px;
+  padding: 0 18px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 850;
+  color: white;
+  background:
+    linear-gradient(135deg, rgba(37,99,235,.92), rgba(124,58,237,.88));
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(59,130,246,.20);
+}
+
+.passwordRow button:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(59,130,246,.24);
+}
+
+.authError{
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 750;
+  color: rgba(185,28,28,.88);
+}
+
+.authHint{
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(17,24,39,.07);
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(107,114,128,.86);
+}
+
+
+/* ---------------- Website-Info WueMedGuide ---------------- */
+
+.siteInfo{
+  margin: 20px 0 22px;
+  border: 1px solid rgba(17,24,39,.08);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.86), rgba(248,250,252,.74));
+  box-shadow:
+    0 10px 30px rgba(17,24,39,.045),
+    inset 0 1px 0 rgba(255,255,255,.75);
+  overflow: hidden;
+}
+
+.siteInfo > summary{
+  cursor: pointer;
+  padding: 16px 22px;
+  font-size: 14px;
+  font-weight: 850;
+  color: rgba(17,24,39,.78);
+}
+
+.siteInfoContent{
+  padding: 0 22px 22px;
+}
+
+.siteInfoContent h2{
+  margin: 0 0 10px;
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 850;
+  color: var(--text);
+}
+
+.siteInfoContent p{
+  margin: 8px 0 0;
+  max-width: 980px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(17,24,39,.72);
+}
