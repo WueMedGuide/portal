@@ -26,9 +26,12 @@ const STORAGE_STATE_KEY = "lernziele_state_v2";
 // alter Key (Kompatibilität)
 const STORAGE_DONE_KEY_OLD = "lernziele_done_v1";
 
+const STORAGE_LECTURE_NOTES_KEY = "lernziele_lecture_notes_v1";
+
 let raw = [];
 let semesterMap = null;
 let stateMap = loadStateMap(); // key -> {done:boolean, star:boolean, repeat:boolean}
+let lectureNotesMap = loadLectureNotesMap(); // lectureKey -> outline note
 
 // Fachfarbe: pro Fach genau eine feste Farbe
 let disciplineColorMap = new Map(); // normalisierter Fachname -> {bg1,bg2}
@@ -298,12 +301,70 @@ function renderDisciplineList(tree, disciplineNames, mountEl) {
 
       const sum = document.createElement("summary");
 
-      const vStats = calcLectureStats(tree[d][v]);
-      sum.textContent = `${v} · ${vStats.done}/${vStats.total} erledigt`;
-      det.appendChild(sum);
+const vStats = calcLectureStats(tree[d][v]);
+sum.textContent = `${v} · ${vStats.done}/${vStats.total} erledigt`;
+det.appendChild(sum);
 
-      // Subgruppen als Titel
-      const subgroups = Object.keys(tree[d][v]).sort((a,b)=>a.localeCompare(b,"de"));
+// Outline-Notiz pro Vorlesung
+const lectureKey = makeLectureKey(d, v);
+
+const noteWrap = document.createElement("details");
+noteWrap.className = "lectureNoteWrap";
+noteWrap.open = false;
+noteWrap.dataset.key = "N:" + lectureKey;
+
+const noteSummary = document.createElement("summary");
+noteSummary.className = "lectureNoteSummary";
+noteSummary.textContent = "Outline-Notiz zur Vorlesung";
+noteWrap.appendChild(noteSummary);
+
+const noteBox = document.createElement("textarea");
+noteBox.className = "lectureNoteBox";
+noteBox.placeholder =
+`Notizen strukturieren …
+
+- Kerngedanke
+  - Detail
+  - Beispiel
+
+- Prüfungsrelevant
+  - ...
+
+- Nacharbeiten
+  - ...`;
+
+noteBox.value = getLectureNote(lectureKey);
+
+let noteTimer = null;
+
+noteBox.addEventListener("input", () => {
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => {
+    setLectureNote(lectureKey, noteBox.value);
+  }, 300);
+});
+
+// Tab-Taste macht Einrückung statt Fokuswechsel
+noteBox.addEventListener("keydown", (e) => {
+  if (e.key === "Tab") {
+    e.preventDefault();
+
+    const start = noteBox.selectionStart;
+    const end = noteBox.selectionEnd;
+    const value = noteBox.value;
+
+    noteBox.value = value.substring(0, start) + "  " + value.substring(end);
+    noteBox.selectionStart = noteBox.selectionEnd = start + 2;
+
+    setLectureNote(lectureKey, noteBox.value);
+  }
+});
+
+noteWrap.appendChild(noteBox);
+det.appendChild(noteWrap);
+
+// Subgruppen als Titel
+const subgroups = Object.keys(tree[d][v]).sort((a,b)=>a.localeCompare(b,"de"));
       for (const s of subgroups){
         const sTitle = document.createElement("div");
         sTitle.className = "subgroupTitle";
@@ -326,20 +387,21 @@ function renderDisciplineList(tree, disciplineNames, mountEl) {
           cb.checked = st.done;
 
           cb.addEventListener("change", () => {
-            const now = getState(key);
-            now.done = cb.checked;
-            setState(key, now);
+  const now = getState(key);
+  now.done = cb.checked;
+  setState(key, now);
 
-            li.classList.toggle("done", cb.checked);
+  li.classList.toggle("done", cb.checked);
 
-            // Wenn Lernmodus "Nur offene" aktiv ist, entferne nur dieses Item (kein re-render, nichts klappt zu)
-            if (onlyOpenEl.checked && cb.checked) {
-              li.remove();
-            }
+  // Merken, welche Bereiche aktuell aufgeklappt sind
+  const openKeys = getOpenDetailsKeys();
 
-            // Status/Progress updaten (leichtgewichtig)
-            updateTopProgressOnly();
-          });
+  // Neu rendern, damit alle Erledigt-Anzeigen sofort aktualisiert werden
+  render();
+
+  // Danach die vorher offenen Bereiche wieder öffnen
+  restoreOpenDetailsKeys(openKeys);
+});
 
           const txt = document.createElement("div");
           txt.className = "lzText";
@@ -695,6 +757,32 @@ function makeKey(r){
   return stableHash(`${r.Disziplin}||${r.Vorlesung}||${r.Subgruppe}||${r.Lernziel}`);
 }
 
+function makeLectureKey(disziplin, vorlesung){
+  return stableHash(`LECTURE_NOTE||${normalizeDisciplineName(disziplin)}||${String(vorlesung || "").trim()}`);
+}
+
+function loadLectureNotesMap(){
+  try {
+    const v = JSON.parse(localStorage.getItem(STORAGE_LECTURE_NOTES_KEY) || "{}");
+    if (v && typeof v === "object") return v;
+  } catch {}
+
+  return {};
+}
+
+function saveLectureNotesMap(){
+  localStorage.setItem(STORAGE_LECTURE_NOTES_KEY, JSON.stringify(lectureNotesMap));
+}
+
+function getLectureNote(key){
+  return String(lectureNotesMap[key] || "");
+}
+
+function setLectureNote(key, value){
+  lectureNotesMap[key] = String(value || "");
+  saveLectureNotesMap();
+}
+
 function normalizeDisciplineName(name){
   return String(name || "").replace(/\s+/g, " ").trim();
 }
@@ -852,4 +940,20 @@ function escapeHtml(s){
 // für querySelector mit data-key (sehr selten nötig, aber sicher)
 function cssEscape(s){
   return String(s).replaceAll('"','\\"');
+}
+
+function getOpenDetailsKeys(){
+  return Array.from(document.querySelectorAll("details[open][data-key]"))
+    .map(el => el.dataset.key)
+    .filter(Boolean);
+}
+
+function restoreOpenDetailsKeys(openKeys){
+  const openSet = new Set(openKeys);
+
+  document.querySelectorAll("details[data-key]").forEach(el => {
+    if (openSet.has(el.dataset.key)) {
+      el.open = true;
+    }
+  });
 }
