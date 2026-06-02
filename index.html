@@ -3,62 +3,175 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lernziel-Bibliothek</title>
-  <link rel="stylesheet" href="style.css?v=7" />
+  <title>WueMedGuide</title>
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
+
 <body>
-  <div class="topbar">
-    <div class="wrap">
-      <div class="brand">
-        <div class="logo">LZ</div>
-        <div>
-          <div class="title">Lernziel-Bibliothek</div>
-          <div class="subtitle">Vorklinik/Klinik → Semester → Disziplin → Vorlesung → Subgruppe (als Titel) → Lernziel</div>
+
+  <!-- Passwort-Screen -->
+  <section id="authScreen" class="authScreen">
+    <div class="authCard">
+      <div class="authLogo">WG</div>
+
+      <div class="authKicker">Digitale Lernzielplattform</div>
+      <h1>WueMedGuide</h1>
+
+      <p class="authText">
+        Strukturierte Lernziele für das Medizinstudium — nach Semester, Disziplin,
+        Vorlesung und thematischen Untergruppen.
+      </p>
+
+      <form id="authForm" class="authForm">
+        <label for="sitePassword">Passwort</label>
+
+        <div class="passwordRow">
+          <input
+            id="sitePassword"
+            type="password"
+            placeholder="Passwort eingeben"
+            autocomplete="current-password"
+          />
+          <button type="submit">Öffnen</button>
         </div>
-      </div>
 
-      <div class="controls">
-        <input id="search" class="search" placeholder="Suche (Disziplin, Vorlesung, Subgruppe, Lernziel) …" />
-
-        <label class="chip primary">
-          <input id="onlyOpen" type="checkbox" />
-          <span>Nur offene (Lernmodus)</span>
-        </label>
-
-        <label class="chip">
-          <input id="filterStar" type="checkbox" />
-          <span>Nur ★ wichtig</span>
-        </label>
-
-        <label class="chip">
-          <input id="filterRepeat" type="checkbox" />
-          <span>Nur 🔁 wiederholen</span>
-        </label>
-
-        <button id="nextOpen" class="btn" type="button">Nächstes offenes</button>
-        <button id="randomPick" class="btn" type="button">Zufällig</button>
-
-        <button id="resetDone" class="btn danger" type="button" title="Setzt erledigt/Marker in diesem Browser zurück">
-          Zurücksetzen
-        </button>
-      </div>
-
-      <div class="statusRow">
-        <div id="status" class="status"></div>
-        <div class="progressMini">
-          <div class="progressLabel" id="progressLabel">Fortschritt</div>
-          <div class="progressBar"><div id="progressFill" class="progressFill"></div></div>
+        <div id="authError" class="authError hidden">
+          Das Passwort ist nicht korrekt.
         </div>
-      </div>
+      </form>
 
-      <div id="spotlight" class="spotlight hidden" aria-live="polite"></div>
+      <div class="authHint">
+        Hinweis: Diese einfache Passwortabfrage dient nur als Zugangshürde für die Testversion.
+      </div>
     </div>
+  </section>
+
+
+  <!-- Eigentliche Website -->
+  <div id="appRoot" class="hidden">
+
+    <div class="topbar">
+      <div class="wrap">
+        <div class="brand">
+          <div class="logo">WG</div>
+          <div>
+            <div class="title">WueMedGuide</div>
+            <div class="subtitle">
+              Vorklinik/Klinik → Semester → Disziplin → Vorlesung → Subgruppe → Lernziel
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <input id="search" class="search" placeholder="Suche (Disziplin, Vorlesung, Subgruppe, Lernziel) …" />
+
+          <label class="chip primary">
+            <input id="onlyOpen" type="checkbox" />
+            <span>Nur offene (Lernmodus)</span>
+          </label>
+
+          <label class="chip">
+            <input id="filterStar" type="checkbox" />
+            <span>Nur ★ wichtig</span>
+          </label>
+
+          <label class="chip">
+            <input id="filterRepeat" type="checkbox" />
+            <span>Nur 🔁 wiederholen</span>
+          </label>
+
+          <button id="nextOpen" class="btn" type="button">Nächstes offenes</button>
+          <button id="randomPick" class="btn" type="button">Zufällig</button>
+
+          <button id="resetDone" class="btn danger" type="button" title="Setzt erledigt/Marker in diesem Browser zurück">
+            Zurücksetzen
+          </button>
+        </div>
+
+        <div class="statusRow">
+          <div id="status" class="status"></div>
+          <div class="progressMini">
+            <div class="progressLabel" id="progressLabel">Fortschritt</div>
+            <div class="progressBar"><div id="progressFill" class="progressFill"></div></div>
+          </div>
+        </div>
+
+        <div id="spotlight" class="spotlight hidden" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <main class="wrap">
+
+      <details class="siteInfo" open>
+        <summary>Über WueMedGuide</summary>
+
+        <div class="siteInfoContent">
+          <h2>Digitale Lernzielplattform für das Medizinstudium</h2>
+
+          <p>
+            WueMedGuide bündelt die Lernziele der medizinischen Lehre in einer strukturierten,
+            semester- und fachbezogenen Übersicht. Die Plattform unterstützt Studierende dabei,
+            Lerninhalte gezielt zu organisieren, offene Themen zu identifizieren und den eigenen
+            Lernfortschritt nachzuverfolgen.
+          </p>
+
+          <p>
+            Die Lernziele sind nach Semester, Disziplin, Vorlesung und thematischen Untergruppen
+            gegliedert. Zusätzlich können Lernziele als erledigt, wichtig oder zur Wiederholung
+            markiert werden.
+          </p>
+        </div>
+      </details>
+
+      <div id="grid" class="stack"></div>
+    </main>
+
   </div>
 
-  <main class="wrap">
-    <div id="grid" class="stack"></div>
-  </main>
 
-  <script src="script.js?v=7"></script>
+  <!-- Passwort-Logik -->
+  <script>
+    const SITE_PASSWORD = "DEIN-PASSWORT-HIER";
+    const AUTH_KEY = "wuemedguide_authenticated_v1";
+
+    const authScreen = document.getElementById("authScreen");
+    const appRoot = document.getElementById("appRoot");
+    const authForm = document.getElementById("authForm");
+    const sitePassword = document.getElementById("sitePassword");
+    const authError = document.getElementById("authError");
+
+    function loadAppScript(){
+      if (document.getElementById("mainScript")) return;
+
+      const script = document.createElement("script");
+      script.id = "mainScript";
+      script.src = "script.js?v=8";
+      document.body.appendChild(script);
+    }
+
+    function unlockApp(){
+      authScreen.classList.add("hidden");
+      appRoot.classList.remove("hidden");
+      loadAppScript();
+    }
+
+    if (sessionStorage.getItem(AUTH_KEY) === "true") {
+      unlockApp();
+    }
+
+    authForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      if (sitePassword.value === SITE_PASSWORD) {
+        sessionStorage.setItem(AUTH_KEY, "true");
+        unlockApp();
+      } else {
+        authError.classList.remove("hidden");
+        sitePassword.value = "";
+        sitePassword.focus();
+      }
+    });
+  </script>
+
 </body>
 </html>
