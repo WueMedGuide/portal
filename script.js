@@ -1,4 +1,4 @@
-const DATA_URL = "https://opensheet.elk.sh/1mJTfT3OJfCzYZCVscKaXxnzhCy3eEzv97GxOlkcGVLg/WebExport";
+const DATA_URL = "https://opensheet.elk.sh/1PhAEGnH0KKUjRiA9vzVkAKICdze8L8d8BPGaTzyYQes/WebExport2.0";
 
 // Spaltennamen aus WebExport:
 const COL_DISZIPLIN = "Disziplin";
