@@ -5,7 +5,6 @@
 Die Anwendung bündelt medizinische Lernziele in einer strukturierten, semester- und fachbezogenen Übersicht und unterstützt Studierende dabei, Lerninhalte gezielt zu organisieren, offene Themen zu identifizieren und den eigenen Lernfortschritt nachzuverfolgen.
 
 ## Öffentliche Frontend-Version
-
 Aktuell erreichbar unter:
 
 ```text
@@ -847,6 +846,5 @@ https://wuemedguide.github.io/portal/
 Lernziel-Datenquelle über OpenSheet:
 
 ```text
-https://opensheet.elk.sh/1PhAEGnH0KKUjRiA9vzVkAKICdze8L8d8BPGaTzyYQes/WebExport2.0
 ```
 
