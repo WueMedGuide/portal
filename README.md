@@ -154,7 +154,7 @@ Die Lernziele werden in **Google Sheets** gepflegt und über **OpenSheet** als J
 Aktueller OpenSheet-Endpunkt:
 
 ```text
-
+https://opensheet.elk.sh/1PhAEGnH0KKUjRiA9vzVkAKICdze8L8d8BPGaTzyYQes/WebExport2.0
 ```
 
 Die Anwendung lädt diese Daten beim Start der Website automatisch.
@@ -846,6 +846,6 @@ https://wuemedguide.github.io/portal/
 Lernziel-Datenquelle über OpenSheet:
 
 ```text
-
+https://opensheet.elk.sh/1PhAEGnH0KKUjRiA9vzVkAKICdze8L8d8BPGaTzyYQes/WebExport2.0
 ```
 
