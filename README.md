@@ -846,5 +846,6 @@ https://wuemedguide.github.io/portal/
 Lernziel-Datenquelle über OpenSheet:
 
 ```text
+https://opensheet.elk.sh/1PhAEGnH0KKUjRiA9vzVkAKICdze8L8d8BPGaTzyYQes/WebExport2.0
 ```
 
